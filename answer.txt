@@ -1,0 +1,34 @@
+Nếu người dùng chọn "Cancel", chương trình vẫn sẽ hiển thị thông báo "You've chosen: No". Điều này xảy ra vì phương thức showConfirmDialog() trả về JOptionPane.CANCEL_OPTION khi người dùng chọn "Cancel", và điều kiện trong câu lệnh chỉ kiểm tra xem lựa chọn có phải là JOptionPane.YES_OPTION hay không.
+Để tùy chỉnh các tùy chọn cho người dùng, có thể sử dụng một phiên bản khác của phương thức showConfirmDialog() là showOptionDialog() để có thể tùy chỉnh các tùy chọn; tạo một mảng options chứa các chuỗi tùy chỉnh cho các nút; sử dụng JOptionPane.YES_NO_OPTION để chỉ hiển thị hai tùy chọn.
+Chú ý xử lý riêng trường hợp người dùng hủy bỏ hộp thoại. Với cách này, bạn có thể tùy chỉnh văn bản trên các nút và xử lý tất cả các trường hợp có thể xảy ra, bao gồm cả việc người dùng đóng hộp thoại mà không chọn bất kỳ tùy chọn nào.
+
+Ví dụ:
+import javax.swing.JOptionPane;
+
+public class ChoosingOption {
+    public static void main(String[] args) {
+        // Tùy chỉnh các tùy chọn
+        Object[] options = {"I do", "I don't"};
+        
+        int option = JOptionPane.showOptionDialog(null,
+            "Do you want to change to the first class ticket?",
+            "Ticket Change",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+
+        String response;
+        if (option == JOptionPane.YES_OPTION) {
+            response = "I do";
+        } else if (option == JOptionPane.NO_OPTION) {
+            response = "I don't";
+        } else {
+            response = "You canceled";
+        }
+
+        JOptionPane.showMessageDialog(null, "You've chosen: " + response);
+        System.exit(0);
+    }
+}
